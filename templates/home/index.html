@@ -11,84 +11,121 @@
 
     <title>Covid-19 India</title>
     <style>
-        body {
-            display: flex;
-        }
-        .total{
+        .total {
             padding: 15px;
             overflow: visible;
             flex-direction: column;
         }
-        h4{
+
+        h4 {
             margin-bottom: 10px;
         }
-        .heading{
+
+        .heading {
             text-align: center;
             font-size: 60px;
-            {#background-image: -webkit-linear-gradient(color-stop(0.4, #FF9933), color-stop(0.6, #000080), color-stop(1, #138808));#}
-            background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #FF9933), color-stop(0.4, #FF9933),color-stop(0.5, #000080),color-stop(0.7, #138808), color-stop(1, #138808));
-             background-image: gradient( linear, left top, right top, color-stop(0, #FF9933), color-stop(0.4, #FF9933), color-stop(0.5, #000080),color-stop(0.7, #138808), color-stop(1, #138808) );
-            color:transparent;
+        {#background-image: -webkit-linear-gradient(color-stop(0.4, #FF9933), color-stop(0.6, #000080), color-stop(1, #138808));#} background-image: -webkit-gradient(linear, left top, right top, color-stop(0, #FF9933), color-stop(0.4, #FF9933), color-stop(0.5, #000080), color-stop(0.7, #138808), color-stop(1, #138808));
+            background-image: gradient(linear, left top, right top, color-stop(0, #FF9933), color-stop(0.4, #FF9933), color-stop(0.5, #000080), color-stop(0.7, #138808), color-stop(1, #138808));
+            color: transparent;
             -webkit-background-clip: text;
             background-clip: text;
         }
-        .tableHead{
+
+        .tableHead {
             position: sticky;
             top: 0;
             background-color: #343a40;
-            border-radius:5px;
+            border-radius: 5px;
             color: white;
         }
     </style>
 </head>
 <body>
+<div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Covid-19India</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    Dropdown
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="#">Action</a>
+                    <a class="dropdown-item" href="#">Another action</a>
+                    <div class="dropdown-divider"></div>
+                    <a class="dropdown-item" href="#">Something else here</a>
+                </div>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+            </li>
+        </ul>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav></div>
 <div class="container my-4">
     <div class="heading">
-    Covid-19 India
+        Covid-19 India
     </div>
-        <div class="row">
-    <div class="col-ls-6 my-4" style="margin-left:0; margin-right: 0;">
-        <div class="row my-4 mx-1" style="text-align: center; align-items: center; ">
-            <div class="total" style="color: red">
-                <h3>Confirmed</h3>
-                <h2>{{ dataStatewise.0.confirmed }}</h2>
+    <div class="row">
+        <div class="col-ls-6 my-4" style="margin-left:0; margin-right: 0;">
+            <div class="row my-4 mx-1" style="text-align: center; align-items: center; ">
+                <div class="total" style="color: red">
+                    <h3>Confirmed</h3>
+                    <h2>{{ dataStatewise.0.confirmed }}</h2>
+                </div>
+                <div class="total" style="color: blue">
+                    <h3>Active</h3>
+                    <h2>{{ dataStatewise.0.active }}</h2>
+                </div>
+                <div class="total" style="color: #009d00">
+                    <h3>Recovered</h3>
+                    <h2>{{ dataStatewise.0.recovered }}</h2>
+                </div>
+                <div class="total" style="color: gray">
+                    <h3>Deceased</h3>
+                    <h2>{{ dataStatewise.0.deaths }}</h2>
+                </div>
             </div>
-            <div class="total" style="color: blue">
-                <h3>Active</h3>
-                <h2>{{ dataStatewise.0.active }}</h2>
-            </div>
-            <div class="total" style="color: #009d00">
-                <h3>Recovered</h3>
-                <h2>{{ dataStatewise.0.recovered }}</h2>
-            </div>
-            <div class="total" style="color: gray">
-                <h3>Deceased</h3>
-                <h2>{{ dataStatewise.0.deaths }}</h2>
-            </div>
-        </div>
-        <table class=" table table-hover" style="border-radius: 15px">
-            <tr style="border-radius: 15px;">
-                <th class="tableHead" >State/UT</th>
-                <th class="tableHead">Confirmed</th>
-                <th class="tableHead">Active</th>
-                <th class="tableHead">Recovered</th>
-                <th class="tableHead">Deceased</th>
-            </tr>
-            <tbody>
-            {% for state in dataStatewise|slice:"1:" %}
+            <table class=" table table-hover" style="border-radius: 15px">
                 <tr style="border-radius: 15px;">
-                    <th scope="row" style="text-align: left">{{ state.state }}</th>
-                    <td style="text-align: right">{{ state.confirmed }}</td>
-                    <td style="text-align: right">{{ state.active }}</td>
-                    <td style="text-align: right">{{ state.recovered }}</td>
-                    <td style="text-align: right">{{ state.deaths }}</td>
+                    <th class="tableHead">State/UT</th>
+                    <th class="tableHead">Confirmed</th>
+                    <th class="tableHead">Active</th>
+                    <th class="tableHead">Recovered</th>
+                    <th class="tableHead">Deceased</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                <tbody>
+                {% for state in dataStatewise|slice:"1:" %}
+                    <tr style="border-radius: 15px;">
+                        <th scope="row" style="text-align: left">{{ state.state }}</th>
+                        <td style="text-align: right">{{ state.confirmed }}</td>
+                        <td style="text-align: right">{{ state.active }}</td>
+                        <td style="text-align: right">{{ state.recovered }}</td>
+                        <td style="text-align: right">{{ state.deaths }}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
 
-    </div>
-    <div class="col-6"></div>
+        </div>
+        <div class="col-6"></div>
     </div>
 </div>
 <!-- Optional JavaScript -->
