@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+    <title>Covid-19 India</title>
+    <style>
+        body {
+            display: flex;
+        }
+        .total{
+            padding: 15px;
+            overflow: visible;
+            flex-direction: column;
+        }
+        h4{
+            margin-bottom: 10px;
+        }
+        .heading{
+            text-align: center;
+            font-size: 60px;
+            {#background-image: -webkit-linear-gradient(color-stop(0.4, #FF9933), color-stop(0.6, #000080), color-stop(1, #138808));#}
+            background-image: -webkit-gradient( linear, left top, right top, color-stop(0, #FF9933), color-stop(0.4, #FF9933),color-stop(0.5, #000080),color-stop(0.7, #138808), color-stop(1, #138808));
+             background-image: gradient( linear, left top, right top, color-stop(0, #FF9933), color-stop(0.4, #FF9933), color-stop(0.5, #000080),color-stop(0.7, #138808), color-stop(1, #138808) );
+            color:transparent;
+            -webkit-background-clip: text;
+            background-clip: text;
+        }
+        .tableHead{
+            position: sticky;
+            top: 0;
+            background-color: #343a40;
+            border-radius:5px;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-4">
+    <div class="heading">
+    Covid-19 India
+    </div>
+        <div class="row">
+    <div class="col-ls-6 my-4" style="margin-left:0; margin-right: 0;">
+        <div class="row my-4 mx-1" style="text-align: center; align-items: center; ">
+            <div class="total" style="color: red">
+                <h3>Confirmed</h3>
+                <h2>{{ dataStatewise.0.confirmed }}</h2>
+            </div>
+            <div class="total" style="color: blue">
+                <h3>Active</h3>
+                <h2>{{ dataStatewise.0.active }}</h2>
+            </div>
+            <div class="total" style="color: #009d00">
+                <h3>Recovered</h3>
+                <h2>{{ dataStatewise.0.recovered }}</h2>
+            </div>
+            <div class="total" style="color: gray">
+                <h3>Deceased</h3>
+                <h2>{{ dataStatewise.0.deaths }}</h2>
+            </div>
+        </div>
+        <table class=" table table-hover" style="border-radius: 15px">
+            <tr style="border-radius: 15px;">
+                <th class="tableHead" >State/UT</th>
+                <th class="tableHead">Confirmed</th>
+                <th class="tableHead">Active</th>
+                <th class="tableHead">Recovered</th>
+                <th class="tableHead">Deceased</th>
+            </tr>
+            <tbody>
+            {% for state in dataStatewise|slice:"1:" %}
+                <tr style="border-radius: 15px;">
+                    <th scope="row" style="text-align: left">{{ state.state }}</th>
+                    <td style="text-align: right">{{ state.confirmed }}</td>
+                    <td style="text-align: right">{{ state.active }}</td>
+                    <td style="text-align: right">{{ state.recovered }}</td>
+                    <td style="text-align: right">{{ state.deaths }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+    <div class="col-6"></div>
+    </div>
+</div>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
+        integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
+        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+        crossorigin="anonymous"></script>
+</body>
+</html>
