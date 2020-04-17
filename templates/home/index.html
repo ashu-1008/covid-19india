@@ -38,47 +38,53 @@
             border-radius: 5px;
             color: white;
         }
+
+        a:hover {
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
 <div>
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">Covid-19India</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="/">Covid-19India</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
-        </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
-    </div>
-</nav></div>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                       data-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        Dropdown
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Action</a>
+                        <a class="dropdown-item" href="#">Another action</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="#">Something else here</a>
+                    </div>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </div>
+    </nav>
+</div>
 <div class="container my-4">
     <div class="heading">
         Covid-19 India
@@ -88,19 +94,19 @@
             <div class="row my-4 mx-1" style="text-align: center; align-items: center; ">
                 <div class="total" style="color: red">
                     <h3>Confirmed</h3>
-                    <h2>{{ dataStatewise.0.confirmed }}</h2>
+                    <h2>{{ dataStateWise.0.confirmed }}</h2>
                 </div>
                 <div class="total" style="color: blue">
                     <h3>Active</h3>
-                    <h2>{{ dataStatewise.0.active }}</h2>
+                    <h2>{{ dataStateWise.0.active }}</h2>
                 </div>
                 <div class="total" style="color: #009d00">
                     <h3>Recovered</h3>
-                    <h2>{{ dataStatewise.0.recovered }}</h2>
+                    <h2>{{ dataStateWise.0.recovered }}</h2>
                 </div>
                 <div class="total" style="color: gray">
                     <h3>Deceased</h3>
-                    <h2>{{ dataStatewise.0.deaths }}</h2>
+                    <h2>{{ dataStateWise.0.deaths }}</h2>
                 </div>
             </div>
             <table class=" table table-hover" style="border-radius: 15px">
@@ -112,9 +118,37 @@
                     <th class="tableHead">Deceased</th>
                 </tr>
                 <tbody>
-                {% for state in dataStatewise|slice:"1:" %}
+                {% for state in dataStateWise|slice:"1:" %}                <!-- loop to get the data of each state -->
                     <tr style="border-radius: 15px;">
-                        <th scope="row" style="text-align: left">{{ state.state }}</th>
+                        <th scope="row" style="text-align: left">
+                            <!-- Example split danger button -->
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary">{{ state.state }}</button>
+                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
+                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <span class="sr-only">Toggle Dropdown</span>
+                                </button>
+                                <div class="dropdown-menu">
+                                    {% for a in dataDistrictWise %}                     <!-- loop to get each state  -->
+                                        {% if a.state == state.state %}                 <!-- to get the data of district of the parent loop state -->
+                                            <table>
+                                                <tr>
+                                                    <th>District</th>
+                                                    <th>Confirmed</th>
+                                                </tr>
+                                            {% for district in a.districtData %}        <!-- loop to get the data of each data -->
+                                                <tr>
+                                                    <td>{{ district.district }}</td>
+                                                    <td>{{ district.confirmed }}</td>
+                                                </tr>
+                                            {% endfor %}
+                                            {{ break }}
+                                            </table>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </th>
                         <td style="text-align: right">{{ state.confirmed }}</td>
                         <td style="text-align: right">{{ state.active }}</td>
                         <td style="text-align: right">{{ state.recovered }}</td>
@@ -125,7 +159,8 @@
             </table>
 
         </div>
-        <div class="col-6"></div>
+        <div class="col-6">
+        </div>
     </div>
 </div>
 <!-- Optional JavaScript -->
