@@ -120,8 +120,8 @@
                 </tr>
                 {% for state in dataStateWise|slice:"1:" %}                <!-- loop to get the data of each state -->
                     <tr style="border-radius: 15px;">
-                        <th scope="row" style="text-align: left; color: blue; cursor: pointer;" >
-                            <a onclick="showDistrictData(displayDistrict{{ forloop.counter }})">{{ state.state }}</a>
+                        <th scope="row" style="text-align: left; color: blue; cursor: pointer;" onclick="showDistrictData(displayDistrict{{ forloop.counter }})" >
+                            {{ state.state }}
                         </th>
                         <td style="text-align: center">{{ state.confirmed }}</td>
                         <td style="text-align: center">{{ state.active }}</td>
