@@ -42,6 +42,7 @@
         a:hover {
             text-decoration: none;
         }
+
     </style>
 </head>
 <body>
@@ -117,45 +118,34 @@
                     <th class="tableHead">Recovered</th>
                     <th class="tableHead">Deceased</th>
                 </tr>
-                <tbody>
                 {% for state in dataStateWise|slice:"1:" %}                <!-- loop to get the data of each state -->
                     <tr style="border-radius: 15px;">
-                        <th scope="row" style="text-align: left">
-                            <!-- Example split danger button -->
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary">{{ state.state }}</button>
-                                <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <span class="sr-only">Toggle Dropdown</span>
-                                </button>
-                                <div class="dropdown-menu">
-                                    {% for a in dataDistrictWise %}                     <!-- loop to get each state  -->
-                                        {% if a.state == state.state %}                 <!-- to get the data of district of the parent loop state -->
-                                            <table>
-                                                <tr>
-                                                    <th>District</th>
-                                                    <th>Confirmed</th>
-                                                </tr>
-                                            {% for district in a.districtData %}        <!-- loop to get the data of each data -->
-                                                <tr>
-                                                    <td>{{ district.district }}</td>
-                                                    <td>{{ district.confirmed }}</td>
-                                                </tr>
-                                            {% endfor %}
-                                            {{ break }}
-                                            </table>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
+                        <th scope="row" style="text-align: left; color: blue; cursor: pointer;" >
+                            <a onclick="showDistrictData(displayDistrict{{ forloop.counter }})">{{ state.state }}</a>
                         </th>
-                        <td style="text-align: right">{{ state.confirmed }}</td>
-                        <td style="text-align: right">{{ state.active }}</td>
-                        <td style="text-align: right">{{ state.recovered }}</td>
-                        <td style="text-align: right">{{ state.deaths }}</td>
+                        <td style="text-align: center">{{ state.confirmed }}</td>
+                        <td style="text-align: center">{{ state.active }}</td>
+                        <td style="text-align: center">{{ state.recovered }}</td>
+                        <td style="text-align: center">{{ state.deaths }}</td>
                     </tr>
+                    <tbody class="displayDistrict" id="displayDistrict{{ forloop.counter }}" style="display: none">
+                    {% for a in dataDistrictWise %}                     <!-- loop to get each state  -->
+                        {% if a.state == state.state %}                 <!-- to get the data of district of the parent loop state -->
+                            <tr>
+                                <th>District</th>
+                                <th>Confirmed</th>
+                            </tr>
+                            {% for district in a.districtData %}        <!-- loop to get the data of each data -->
+                                <tr>
+                                    <td>{{ district.district }}</td>
+                                    <td>{{ district.confirmed }}</td>
+                                </tr>
+                            {% endfor %}
+                            {{ break }}
+                        {% endif %}
+                    {% endfor %}
+                    </tbody>
                 {% endfor %}
-                </tbody>
             </table>
 
         </div>
@@ -164,6 +154,16 @@
     </div>
 </div>
 <!-- Optional JavaScript -->
+<script>
+    // function to show districtData
+    function showDistrictData(districtId) {
+        if(districtId.style.display === "none"){
+            districtId.style.display = "block";}
+        else{
+            districtId.style.display = "none";
+        }
+    }
+</script>
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
